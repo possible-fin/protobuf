@@ -320,8 +320,11 @@ func (m *Marshaler) marshalObject(out *errWriter, v proto.Message, indent, typeU
 		}
 
 		//PF work around
-		if value.Kind() == reflect.Invalid {
-			continue
+		{
+			v := reflect.Indirect(value)
+			if v.Kind() == reflect.Invalid {
+				continue
+			}
 		}
 
 		// Oneof fields need special handling.
