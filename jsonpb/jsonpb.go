@@ -319,6 +319,11 @@ func (m *Marshaler) marshalObject(out *errWriter, v proto.Message, indent, typeU
 			}
 		}
 
+		//PF work around
+		if value.Kind() == reflect.Invalid {
+			continue
+		}
+
 		// Oneof fields need special handling.
 		if valueField.Tag.Get("protobuf_oneof") != "" {
 			// value is an interface containing &T{real_value}.
